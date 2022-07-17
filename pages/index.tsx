@@ -6,6 +6,7 @@ import NavBar from "../components/NavBar/NavBar";
 import { Provider, useSelector } from "react-redux";
 import { RootState, store } from "../app/store";
 import MiniDrawer from "../components/Drawer/Drawer";
+import { Classroom } from "../components/Classroom/Classroom";
 
 const App = () => {
   const Selector = useSelector((state: RootState) => state);
@@ -39,6 +40,15 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <MiniDrawer />
+      <Classroom
+        course={{
+          id: "test",
+          name: "English",
+          students: ["123456"],
+          teacher: "456123",
+        }}
+        room={{ id: "dfgdfgd", name: "Room #1", state: true, status: true }}
+      />
     </ThemeProvider>
   );
 };
