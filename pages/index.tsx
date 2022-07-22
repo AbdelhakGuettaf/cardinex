@@ -44,25 +44,35 @@ const App = () => {
       <Container
         sx={{
           marginX: "64px",
+          display: "flex",
+          gap: "15px",
         }}
       >
         <Classroom
           course={{
             id: "test",
             name: "English",
-            students: [
-              "123456",
-              "123456",
-              "123456",
-              "123456",
-              "123456",
-              "123456",
-            ],
+            students: ["65UKER65"],
             teacher: "456123",
           }}
           room={{
             id: "dfgdfgd",
             name: "Room #1",
+            state: true,
+            status: true,
+            capacity: 12,
+          }}
+        />
+        <Classroom
+          course={{
+            id: "test",
+            name: "Arabic",
+            students: ["123456", "123456", "123456", "123456"],
+            teacher: "456123",
+          }}
+          room={{
+            id: "dfgdfgd",
+            name: "Room #2",
             state: true,
             status: true,
             capacity: 12,

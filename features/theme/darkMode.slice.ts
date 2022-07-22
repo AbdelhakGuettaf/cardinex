@@ -4,7 +4,7 @@ import type { RootState } from "../../app/store";
 import { PaletteMode } from "@mui/material";
 
 // Define the initial state using that type
-const initialState = "dark" as PaletteMode;
+const initialState = "light" as PaletteMode;
 
 export const ModeSlice = createSlice({
   name: "mode",

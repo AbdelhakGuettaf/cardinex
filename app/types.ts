@@ -21,7 +21,7 @@ export type Student = {
   name: string;
   studentCourses: string[];
   status: boolean;
-  payment: [StudentPayment];
+  payment: StudentPayment[];
 };
 
 export type StudentPayment = { id: string; status: boolean };
