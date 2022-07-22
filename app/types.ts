@@ -1,43 +1,44 @@
 export interface School {
-  id: String;
+  id: string;
   info: Info;
-  teachers: [Teacher];
-  students: [Student];
-  classrooms: [ClassRoom];
-  courses: [Courses];
+  teachers: Teacher[];
+  students: Student[];
+  classrooms: ClassRoom[];
+  courses: Courses[];
 }
 
-export type Info = { name: String; location: String };
+export type Info = { name: string; location: string };
 
 export type Teacher = {
-  id: String;
-  name: String;
-  courses: [String];
-  status: Boolean;
+  id: string;
+  name: string;
+  courses: string[];
+  status: boolean;
 };
 
 export type Student = {
-  id: String;
-  name: String;
-  studentCourses: [String];
-  status: Boolean;
+  id: string;
+  name: string;
+  studentCourses: string[];
+  status: boolean;
   payment: [StudentPayment];
 };
 
-export type StudentPayment = { id: String; status: Boolean };
+export type StudentPayment = { id: string; status: boolean };
 
 export type ClassRoom = {
-  id: String;
-  name: String;
-  status: Boolean;
-  state: Boolean;
+  id: string;
+  name: string;
+  capacity: number;
+  status: boolean;
+  state: boolean;
 };
 
 export type Course = {
-  id: String;
-  name: String;
-  teacher: String;
-  students: [String];
+  id: string;
+  name: string;
+  teacher: string;
+  students: string[];
 };
 
 export type Courses = [Course];
