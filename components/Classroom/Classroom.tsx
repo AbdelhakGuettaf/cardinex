@@ -5,7 +5,11 @@ import { Course, ClassRoom, Student } from "../../app/types";
 import BadgeUnstyled, { badgeUnstyledClasses } from "@mui/base/BadgeUnstyled";
 interface ClassroomProps {
   course?: Course;
-  room: ClassRoom;
+  capacity: number;
+  id: string;
+  name: string;
+  state: boolean;
+  status: boolean;
 }
 const Div = styled("div")(({ theme }) => ({
   ...theme.typography.button,
@@ -83,10 +87,16 @@ const students: Student[] = [
   },
 ];*/
 
-export const Classroom: React.FC<ClassroomProps> = ({ course, room }) => {
+export const Classroom: React.FC<ClassroomProps> = ({
+  course,
+  capacity,
+  name,
+  state,
+  status,
+}) => {
   function percentage() {
     if (!course) return 0;
-    return (100 * course.students.length) / room.capacity;
+    return (100 * course.students.length) / capacity;
   }
   function checkStudents() {
     /*
@@ -95,10 +105,58 @@ export const Classroom: React.FC<ClassroomProps> = ({ course, room }) => {
       if (!student) return false;
       return student.payment.find((p) => p.id === course.id)?.status;
     });*/
-    return false;
+    return true;
   }
+  if (!status)
+    return (
+      <StyledBadge color="success" badgeContent="" invisible={checkStudents()}>
+        <Paper
+          elevation={2}
+          sx={{
+            textAlign: "center",
+            flexDirection: "column",
+            width: "130px",
+            height: "140px",
+            p: "5px",
+          }}
+        >
+          <Div
+            sx={{
+              color: "",
+              fontWeight: "bold",
+            }}
+          >
+            {name}
+          </Div>
+          <CourseName>Out of Service</CourseName>
+          <Box
+            sx={{
+              display: "flex",
+              paddingX: "16px",
+            }}
+          >
+            {" "}
+            <Box
+              sx={{
+                width: "100%",
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "space-between",
+                gap: "5px",
+              }}
+            >
+              {(() => {
+                return [...Array(12)].map((c, key) => {
+                  return <InactiveChair key={key} />;
+                });
+              })()}
+            </Box>
+          </Box>
+        </Paper>
+      </StyledBadge>
+    );
   return (
-    <StyledBadge color="success" badgeContent=" " invisible={checkStudents()}>
+    <StyledBadge color="success" badgeContent="" invisible={checkStudents()}>
       <Paper
         elevation={2}
         sx={{
@@ -111,13 +169,13 @@ export const Classroom: React.FC<ClassroomProps> = ({ course, room }) => {
       >
         <Div
           sx={{
-            color: room.state ? "green" : "",
-            fontWeight: room.state ? "bold" : "",
+            color: state ? "green" : "",
+            fontWeight: state ? "bold" : "",
           }}
         >
-          {room.name}
+          {name}
         </Div>
-        <CourseName>{room.state && course && course.name}</CourseName>
+        <CourseName>{state && course && course.name}</CourseName>
         <Box
           sx={{
             display: "flex",
@@ -136,7 +194,7 @@ export const Classroom: React.FC<ClassroomProps> = ({ course, room }) => {
           >
             {(() => {
               return [...Array(12)].map((c, key) => {
-                if (!room.state) return <InactiveChair key={key} />;
+                if (!state) return <InactiveChair key={key} />;
                 if (key + 1 < percentage() / 8) {
                   return <Chair key={key} />;
                 }
