@@ -4,9 +4,10 @@ import React from "react";
 import { Course, ClassRoom, Student } from "../../app/types";
 import BadgeUnstyled, { badgeUnstyledClasses } from "@mui/base/BadgeUnstyled";
 interface ClassroomProps {
-  course?: Course;
+  courseName?: string;
+  badge?: boolean;
+  students: number;
   capacity: number;
-  id: string;
   name: string;
   state: boolean;
   status: boolean;
@@ -22,8 +23,8 @@ const CourseName = styled("div")(({ theme }) => ({
 const Chair = styled("div")(({ theme }) => ({
   width: "20%",
   aspectRatio: "1",
-  backgroundColor: theme.palette.success.main,
-  borderRadius: "5px",
+  backgroundColor: theme.palette.success.light,
+  borderRadius: "7px",
 }));
 const InactiveChair = styled("div")(({ theme }) => ({
   width: "20%",
@@ -45,15 +46,8 @@ const StyledBadge = styled(BadgeUnstyled)`
 
   & .${badgeUnstyledClasses.badge} {
     z-index: auto;
-    min-width: 20px;
-    height: 20px;
-    padding: 0 6px;
-    color: #fff;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 20px;
-    white-space: nowrap;
-    text-align: center;
+    width: 20px;
+    aspect-ratio: 1;
     background: rgb(75, 252, 98);
     background: radial-gradient(
       circle,
@@ -73,43 +67,24 @@ const StyledBadge = styled(BadgeUnstyled)`
     opacity: 0;
     pointer-events: none;
   }
-`; /*
-const students: Student[] = [
-  {
-    id: "65UKER65",
-    name: "Luffy Cracked",
-    studentCourses: ["test", "tessttt"],
-    status: true,
-    payment: [
-      { id: "test", status: true },
-      { id: "tessttt", status: false },
-    ],
-  },
-];*/
-
+`;
 export const Classroom: React.FC<ClassroomProps> = ({
-  course,
+  courseName,
+  badge,
+  students,
   capacity,
   name,
   state,
   status,
 }) => {
   function percentage() {
-    if (!course) return 0;
-    return (100 * course.students.length) / capacity;
+    if (!courseName) return 0;
+    return (100 * students) / capacity;
   }
-  function checkStudents() {
-    /*
-    return course?.students.every((studentId) => {
-      const student = students.find((s) => s.id === studentId);
-      if (!student) return false;
-      return student.payment.find((p) => p.id === course.id)?.status;
-    });*/
-    return true;
-  }
+
   if (!status)
     return (
-      <StyledBadge color="success" badgeContent="" invisible={checkStudents()}>
+      <StyledBadge color="success" badgeContent="" invisible={badge}>
         <Paper
           elevation={2}
           sx={{
@@ -156,7 +131,7 @@ export const Classroom: React.FC<ClassroomProps> = ({
       </StyledBadge>
     );
   return (
-    <StyledBadge color="success" badgeContent="" invisible={checkStudents()}>
+    <StyledBadge color="success" badgeContent="" invisible={!badge}>
       <Paper
         elevation={2}
         sx={{
@@ -175,11 +150,11 @@ export const Classroom: React.FC<ClassroomProps> = ({
         >
           {name}
         </Div>
-        <CourseName>{state && course && course.name}</CourseName>
+        <CourseName>{state && courseName && courseName}</CourseName>
         <Box
           sx={{
             display: "flex",
-            paddingX: "16px",
+            paddingX: "12px",
           }}
         >
           {" "}
