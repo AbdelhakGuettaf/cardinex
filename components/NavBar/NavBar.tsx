@@ -19,13 +19,11 @@ import InputBase from "@mui/material/InputBase";
 const pages = ["Teachers", "Students", "Subjects"];
 const settings = ["Profile", "My School", "Dashboard", "Logout"];
 
-const NavBar = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
-  );
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
-  );
+const NavBar: React.FC = (children) => {
+  const [anchorElNav, setAnchorElNav] =
+    React.useState<null | HTMLElement>(null);
+  const [anchorElUser, setAnchorElUser] =
+    React.useState<null | HTMLElement>(null);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -43,7 +41,7 @@ const NavBar = () => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />

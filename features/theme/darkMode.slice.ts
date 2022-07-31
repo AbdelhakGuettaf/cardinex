@@ -1,6 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
-import type { RootState } from "../../app/store";
 import { PaletteMode } from "@mui/material";
 
 // Define the initial state using that type

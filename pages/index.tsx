@@ -1,13 +1,17 @@
 import type { NextPage } from "next";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { createTheme, styled, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import React from "react";
-import NavBar from "../components/NavBar/NavBar";
 import { Provider, useSelector } from "react-redux";
 import { RootState, store } from "../app/store";
 import MiniDrawer from "../components/Drawer/Drawer";
 import { Classroom } from "../components/Classroom/Classroom";
-import { Container } from "@mui/system";
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
+import { Box, Paper, Typography } from "@mui/material";
+import { MainTitle } from "../components/Titles/MainTitle";
 
 const App = () => {
   const Selector = useSelector((state: RootState) => state);
@@ -18,17 +22,26 @@ const App = () => {
         palette: {
           mode: mode,
           primary: {
-            main: "#003049",
+            main: "#3d5a80",
+            dark: "#293241",
+            light: "#98c1d9",
           },
           secondary: {
             main: "#9e2a2b",
           },
+          background: {
+            default: "#d9dcd6",
+            paper: "#fff",
+          },
+        },
+        typography: {
+          fontFamily: "revert-layer",
         },
         components: {
           MuiDrawer: {
             styleOverrides: {
               paper: {
-                backgroundColor: "#003049",
+                backgroundColor: "#293241",
                 color: "white",
               },
             },
@@ -37,48 +50,30 @@ const App = () => {
       }),
     [mode]
   );
+  const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <MiniDrawer />
-      <Container
-        sx={{
-          marginX: "64px",
-          display: "flex",
-          gap: "15px",
-        }}
-      >
-        <Classroom
-          course={{
-            id: "test",
-            name: "English",
-            students: ["65UKER65"],
-            teacher: "456123",
-          }}
-          room={{
-            id: "dfgdfgd",
-            name: "Room #1",
-            state: true,
-            status: true,
-            capacity: 12,
-          }}
-        />
-        <Classroom
-          course={{
-            id: "test",
-            name: "Arabic",
-            students: ["123456", "123456", "123456", "123456"],
-            teacher: "456123",
-          }}
-          room={{
-            id: "dfgdfgd",
-            name: "Room #2",
-            state: true,
-            status: true,
-            capacity: 12,
-          }}
-        />
-      </Container>
+      <MiniDrawer>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: "42px" }}>
+          <Paper sx={{ p: "12px" }}>
+            <MainTitle
+              color={mode === "light" ? "#212121" : "white"}
+              text="My School"
+              type="h4"
+            />
+          </Paper>
+          <Classroom
+            capacity={15}
+            name="Room #1"
+            state
+            status
+            students={8}
+            courseName="Arabic"
+          />
+        </Box>
+      </MiniDrawer>
+      <Offset />
     </ThemeProvider>
   );
 };
