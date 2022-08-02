@@ -6,7 +6,7 @@ import BadgeUnstyled, { badgeUnstyledClasses } from "@mui/base/BadgeUnstyled";
 interface ClassroomProps {
   courseName?: string;
   badge?: boolean;
-  students: number;
+  students?: number;
   capacity: number;
   name: string;
   state: boolean;
@@ -19,12 +19,17 @@ const Div = styled("div")(({ theme }) => ({
 const CourseName = styled("div")(({ theme }) => ({
   ...theme.typography.subtitle1,
   height: "30px",
+  textOverflow: "ellipsis",
+  overflow: "hidden",
+  whiteSpace: "nowrap",
+  paddingLeft: "12px",
+  paddingRight: "12px",
 }));
 const Chair = styled("div")(({ theme }) => ({
   width: "20%",
   aspectRatio: "1",
   backgroundColor: theme.palette.success.light,
-  borderRadius: "7px",
+  borderRadius: "5px",
 }));
 const InactiveChair = styled("div")(({ theme }) => ({
   width: "20%",
@@ -78,7 +83,7 @@ export const Classroom: React.FC<ClassroomProps> = ({
   status,
 }) => {
   function percentage() {
-    if (!courseName) return 0;
+    if (!courseName || !students) return 0;
     return (100 * students) / capacity;
   }
 
@@ -99,6 +104,12 @@ export const Classroom: React.FC<ClassroomProps> = ({
             sx={{
               color: "",
               fontWeight: "bold",
+              textOverflow: "ellipsis",
+              overflow: "hidden",
+              whiteSpace: "nowrap",
+              paddingLeft: "12px",
+              paddingRight: "12px",
+              backgroundColor: "transparent",
             }}
           >
             {name}
@@ -107,7 +118,7 @@ export const Classroom: React.FC<ClassroomProps> = ({
           <Box
             sx={{
               display: "flex",
-              paddingX: "16px",
+              paddingX: "12px",
             }}
           >
             {" "}
@@ -146,6 +157,12 @@ export const Classroom: React.FC<ClassroomProps> = ({
           sx={{
             color: state ? "green" : "",
             fontWeight: state ? "bold" : "",
+            textOverflow: "ellipsis",
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            paddingLeft: "12px",
+            paddingRight: "12px",
+            backgroundColor: "transparent",
           }}
         >
           {name}

@@ -19,7 +19,10 @@ export type Teacher = {
 export type Student = {
   id: string;
   name: string;
-  studentCourses: string[];
+  studentCourses: {
+    id: string;
+    name: string;
+  }[];
   status: boolean;
   payment: StudentPayment[];
 };
